@@ -2,7 +2,7 @@
  * Hegazy5.cpp
  *
  *  Created on: Nov 10, 2016
- *      Author: admin
+ *      Author: hesha
  */
 #include <iostream>
 #include <vector>
@@ -63,8 +63,8 @@ string swap(vector<vector<short> >& board) {
 	//if kind = 0, we swap rows. if kind = 1, we swap cols.
 	if (kind) { //Swap columns.
 		ans += "Trying to swap columns "; ans += 'A' + first; ans+= " and ";  ans += 'A' + second; ans += "...\n";
-		if (abs(second - first) > 2) {
-			//You have to swap all three.
+		if (second/3 != first/3) {
+			//Second's group of 3 is different from the first's. You have to swap all three.
 			first = first - (first % 3); second = second - (second % 3); //resets first to the first elements of each three-square.
 			for(int i = 0; i < 3; i++) {
 				ans += "- Columns "; ans += 'A' + first + i; ans += " and "; ans += 'A' + second + i; ans += " were swapped...\n";
@@ -79,7 +79,7 @@ string swap(vector<vector<short> >& board) {
 	}
 	else { //Swap rows.
 		ans += "Trying to swap rows "; ans += 'P' + first; ans+= " and "; ans += 'P' + second; ans += "...\n";
-		if (abs(second - first) > 2) {
+		if (second/3 != first/3) {
 			//You have to swap all three.
 			first = first - (first % 3); second = second - (second % 3); //resets first to the first elements of each three-square.
 			for(int i = 0; i < 3; i++) {
