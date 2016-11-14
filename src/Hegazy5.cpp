@@ -2,7 +2,7 @@
  * Hegazy5.cpp
  *
  *  Created on: Nov 10, 2016
- *      Author: hesha
+ *      Author: admin
  */
 #include <iostream>
 #include <vector>
