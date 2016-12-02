@@ -89,12 +89,13 @@ void Our_window::drop() {
 	int min_x = LEN; int max_x = x_max() - LEN; int x_range = max_x - min_x + 1; //x cannot go out of bounds
 	int min_y = LEN; int max_y = y_max() - LEN; int y_range = max_y - min_y + 1; //may get better results if we limit y, as well
 	for (auto line : lines) {line->set_color(Color::black);} //makes sense to recolor red lines on new drop
+	int og_size = lines.size();
 	for (int i = 0; i < stick_amt; i++) {
 		int rand_angle = rand() % 360;
 		int x1 = min_x + rand()  % x_range; int y1 = min_y + rand() % y_range;
 		int x2 = x1 + (int)round(cos(rand_angle)*LEN); int y2 = y1 + (int)round(sin(rand_angle)*LEN);
 		Line* line = new Line(Point(x1,y1), Point(x2,y2)); lines.push_back(line);
-		Text* text = new Text(center_pt(line), to_string(lines.size() + i)); drop_order.push_back(text);
+		Text* text = new Text(center_pt(line), to_string(og_size + i + 1)); drop_order.push_back(text);
 		attach(*line); if (listed) attach(*text); //if listed is already on, it makes sense to list the new needles
 	}
 	hide_menu();
