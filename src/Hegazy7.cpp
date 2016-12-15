@@ -50,12 +50,12 @@ Our_window::Our_window(Point xy, int w, int h, const string& title)
 	 text_box(Point(x_max() / 2 - 200, y_max()/2 - 50), 460, 20),
 	 approx_pi(Point(x_max() / 2- 200, y_max()/2 - 35), "Found 0 crossed needles, and estimated pi is inf!")
 
-{	//lambda function formatting taken from the book
+{
 	motion_menu.attach(new Button(Point(0,0),0,0, "Count", [](Address, Address pw) {reference_to<Our_window>(pw).count();}));
 	motion_menu.attach(new Button(Point(0,0),0,0, "Rotate", [](Address, Address pw) {reference_to<Our_window>(pw).rotate();}));
 	motion_menu.attach(new Button(Point(0,0),0,0, "(Un)list", [](Address, Address pw) {reference_to<Our_window>(pw).unlist();}));
-	text_box.set_fill_color(Color::dark_green);
-	approx_pi.set_color(Color::white);
+	text_box.set_fill_color(Color::dark_green); //background of count display
+	approx_pi.set_color(Color::white); //text color of count display
 	approx_pi.set_font_size(17);
 	attach(drop_button);
 	attach(quit_button);
@@ -64,7 +64,8 @@ Our_window::Our_window(Point xy, int w, int h, const string& title)
 	motion_menu.hide();
 	attach(menu_button);
 }
-Point center_pt(Line* line) {//helper function that isn't meant for the blueprint of Our_window class, but still used by Our_window class
+Point center_pt(Line* line) {
+	//this doesn't belong in the blueprint for Our_window, but it is used by Our_window objects
 	int c_x = (int)round((line->point(0).x + line->point(1).x) / 2.0);
 	int c_y = (int)round((line->point(0).y + line->point(1).y) / 2.0);
 	return Point(c_x, c_y);
@@ -109,7 +110,7 @@ void Our_window::hide_count() {
 	for (auto line : lines)
 			line->set_color(Color::black); //makes sense to re-color red lines on new drop; we're not counting anymore
 		detach(text_box);
-		detach(approx_pi); //in case we just pressed count, we want to hide this
+		detach(approx_pi);
 }
 //main functions
 void Our_window::drop() {
@@ -161,7 +162,7 @@ void Our_window::rotate() {
 		int y2 = ctr.y - (int)round(sin(theta)*(LEN/2));
 		detach(*lines[i]);
 		delete lines[i];
-		lines[i] = new Line(Point(x1,y1), Point(x2,y2)); //just completely set to a new line with the same center and random angle
+		lines[i] = new Line(Point(x1,y1), Point(x2,y2)); //set to a new line with the same center and random angle
 		attach(*lines[i]);
 	}
 
@@ -175,9 +176,9 @@ void Our_window::unlist() {
 	hide_menu();
 }
 void Our_window::quit() {
-	/*in case Our_window is used in a program in which multiple windows are open, we want to make sure 
-	that all objects are deleted and detached when this window is closed. It doesn't matter for this program though - 
-	the program quits entirely on quit(), freeing all memory.*/ 
+	/*in case Our_window is used in a program in which multiple windows are open, we want to make sure
+	that all objects are deleted and detached when this window is closed. It doesn't matter for this program though -
+	the program quits entirely on quit(), freeing all memory.*/
 	for (auto line : lines) {
 		detach(*line);
 		delete line;
