@@ -159,13 +159,12 @@ void Our_window::rotate() {
 		int x2 = ctr.x - (int)round(cos(theta)*(LEN/2));
 		int y1 = ctr.y + (int)round(sin(theta)*(LEN/2));
 		int y2 = ctr.y - (int)round(sin(theta)*(LEN/2));
-		Line* new_Line = new Line(Point(x1,y1), Point(x2,y2)); //just completely set to a new line with the same center and random angle
 		detach(*lines[i]);
 		delete lines[i];
-		lines[i] = new_Line;
+		lines[i] = new Line(Point(x1,y1), Point(x2,y2)); //just completely set to a new line with the same center and random angle
 		attach(*lines[i]);
-		//because C++ cannot change the object that a ptr refers to, we delete obj AND ptr, and replace array contents with new one
 	}
+
 	hide_count();
 	hide_menu();
 }
@@ -176,6 +175,9 @@ void Our_window::unlist() {
 	hide_menu();
 }
 void Our_window::quit() {
+	/*in case Our_window is used in a program in which multiple windows are open, we want to make sure 
+	that all objects are deleted and detached when this window is closed. It doesn't matter for this program though - 
+	the program quits entirely on quit(), freeing all memory.*/ 
 	for (auto line : lines) {
 		detach(*line);
 		delete line;
