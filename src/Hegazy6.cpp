@@ -56,8 +56,8 @@ int main () {
         generations++;
     }
     win.detach(base_circle);
-    for (int i = 0; i < circles.size(); i++) delete circles[i];
     for (int i = 0; i < circles.size(); i++)  win.detach(*(circles[i]));
+    for (int i = 0; i < circles.size(); i++) delete circles[i];
     win.hide();
 }
 //----
