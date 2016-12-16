@@ -32,6 +32,11 @@ void display_circles(Simple_window& win, int rings, int generations, vector<Circ
     win.wait_for_button();
 }
 int main () {
+    /* Note : you must quit by typing in a non-number into the input!
+     * Because wait_for_button() deliberately does not handle the case of the user pressing the red X on the window
+     * (see the documentation in the Simple_window implementation), there will be a memory leak unless you quit by typing in
+     * a non-numeral input
+     */
     std::srand(std::time(0)); // use current time as seed for random generator
     int rings;
     int generations = 1;
@@ -55,4 +60,4 @@ int main () {
     for (int i = 0; i < circles.size(); i++)  win.detach(*(circles[i]));
     win.hide();
 }
-//------------------------------------------------------------------------------
+//----
