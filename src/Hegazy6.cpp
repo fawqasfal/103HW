@@ -49,7 +49,7 @@ int main () {
     if (rings <= 0) {exit(1);}
     Point tl(0,0);    // top-left corner of our window
     Simple_window win(tl,500,500,"Programming Assignment #6");
-    while (rings >= 0) {
+    while (rings > 0) {
         display_circles(win, rings);
         cout << "How many rings should there be?" << endl;
         cin >> rings;
